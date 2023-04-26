@@ -1,4 +1,4 @@
-// Simplilearn PG DevOps Project submission
+// Simplilearn PG DevOps Project 1 submission
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
