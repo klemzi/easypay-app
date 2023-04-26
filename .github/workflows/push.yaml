@@ -2,17 +2,29 @@ name: push to ECR
 
 on:
   push:
-    branches:
-      - main
     paths:
       - "easypay-app/**"
 
 jobs:
-  # This workflow has one job call push
+  # This workflow has two jobs call check and push
+  # check --> checks the branch that the push happened on
+  check:
+    name: Pre-check
+    runs-on: ubuntu-latest
+    if: github.ref_type == 'tag'
+    outputs:
+      branch: ${{ steps.branch.outputs.ref_branch }}
+    steps:
+      - name: Get branch
+        id: branch
+        uses: tj-actions/branch-names@v6
+
   # push --> pushes the app to AWS ECR
   push:
     name: push to ECR
     runs-on: ubuntu-latest
+    needs: check
+    if: ${{ needs.check.outputs.branch }} == "main"
 
     steps:
       # Steps in this push job
@@ -31,10 +43,10 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v1
 
       - name: Build, tag, and push image to Amazon ECR
-        working-directory: ./app
+        working-directory: ./easypay-app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: ollset-app
+          ECR_REPOSITORY: easypay-app
           IMAGE_TAG: latest #${{ github.sha }} will use this when improvements
           
         run: |
