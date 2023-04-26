@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: easypay-config
+  namespace: easypay
+data:
+  DB_HOST: mysql
+  DB_NAME: easypay-db
+  DB_PORT: "3306"
