@@ -45,7 +45,7 @@ jobs:
         working-directory: ./easypay-app
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: easypay-app
+          ECR_REPOSITORY: easypay-repo
           IMAGE_TAG: latest # ${{ github.sha }} will use this in the future
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
