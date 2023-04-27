@@ -1,0 +1,28 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: easypay
+  name: ep-admin
+rules:
+  - apiGroups:
+      - "*"
+    resources:
+      - "*"
+    verbs:
+      - "*"
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: ep-admin-bind
+  namespace: easypay
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: ep-admin
+subjects:
+  - kind: Group
+    name: easypay_admin
+    namespace: easypay
