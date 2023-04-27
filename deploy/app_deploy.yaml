@@ -80,8 +80,6 @@ spec:
         - name: easypay
           image: "983162875680.dkr.ecr.us-east-1.amazonaws.com/easypay-repo:latest"
           imagePullPolicy: Always
-          imagePullSecrets:
-            - name: regcred
           env:
             - name: DB_HOST
               valueFrom:
@@ -108,6 +106,8 @@ spec:
                 secretKeyRef:
                   name: easypay-secrets
                   key: mysql-pwd
+          imagePullSecrets:
+            - name: regcred
           ports:
             - name: http
               containerPort: 30050
