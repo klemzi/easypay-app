@@ -81,7 +81,7 @@ spec:
           image: "983162875680.dkr.ecr.us-east-1.amazonaws.com/easypay-repo:latest"
           imagePullPolicy: Always
           imagePullSecrets:
-            - regcred
+            - name: regcred
           env:
             - name: DB_HOST
               valueFrom:
