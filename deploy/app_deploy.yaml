@@ -58,28 +58,30 @@ spec:
         app: easypay
         role: frontend
     spec:
-      initContainers:
-        - image: busybox:1.28
-          name: wait-db
-          env:
-            - name: DB_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: easypay-config
-                  key: DB_HOST
-          command:
-            - sh
-            - -c
-            - |
-              until nslookup ${DB_HOST};
-              do
-                echo waiting for ${DB_HOST};
-                sleep 3;
-              done
+      # initContainers:
+      #   - image: busybox:1.28
+      #     name: wait-db
+      #     env:
+      #       - name: DB_HOST
+      #         valueFrom:
+      #           configMapKeyRef:
+      #             name: easypay-config
+      #             key: DB_HOST
+      #     command:
+      #       - sh
+      #       - -c
+      #       - |
+      #         until nslookup ${DB_HOST};
+      #         do
+      #           echo waiting for ${DB_HOST};
+      #           sleep 3;
+      #         done
       containers:
         - name: easypay
           image: "983162875680.dkr.ecr.us-east-1.amazonaws.com/easypay-repo:latest"
           imagePullPolicy: Always
+          imagePullSecrets:
+            - regcred
           env:
             - name: DB_HOST
               valueFrom:
