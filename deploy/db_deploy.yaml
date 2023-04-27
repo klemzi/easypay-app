@@ -37,19 +37,6 @@ spec:
   clusterIP: None
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-  namespace: easypay
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 4Gi
-
----
 
 # MYSQL deployment yaml
 apiVersion: apps/v1
@@ -97,10 +84,6 @@ spec:
                 configMapKeyRef:
                   name: easypay-config
                   key: DB_NAME
-          resources:
-            limits:
-              cpu: 1000m
-              memory: 1Gi
           ports:
             - containerPort: 3306
               name: mysql
@@ -157,5 +140,4 @@ spec:
                   mysqladmin status -uroot -p"${password_aux}"          
       volumes:
         - name: mysql-store
-          persistentVolumeClaim:
-            claimName: mysql-pv-claim
+          emptyDir: {}
