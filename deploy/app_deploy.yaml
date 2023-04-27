@@ -106,8 +106,6 @@ spec:
                 secretKeyRef:
                   name: easypay-secrets
                   key: mysql-pwd
-          imagePullSecrets:
-            - name: regcred
           ports:
             - name: http
               containerPort: 30050
@@ -116,4 +114,6 @@ spec:
             limits:
               cpu: 500m
               memory: 500Mi
+      imagePullSecrets:
+        - name: regcred
 
