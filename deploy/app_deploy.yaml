@@ -1,5 +1,5 @@
 ---
-apiVersion: autoscaling/v2beta1
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: easypay-hpa
@@ -17,7 +17,9 @@ spec:
     - type: Resource
       resource:
         name: cpu
-        targetAverageUtilization: 50
+        target:
+          type: Utilization
+          averageUtilization: 50
 
 ---
 apiVersion: v1
@@ -63,7 +65,7 @@ spec:
             - name: DB_HOST
               valueFrom:
                 configMapKeyRef:
-                  name: cep-config
+                  name: easypay-config
                   key: DB_HOST
           command:
             - sh
