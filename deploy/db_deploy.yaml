@@ -33,7 +33,7 @@ metadata:
   namespace: easypay
 spec:
   ports:
-  - port: 3306
+    - port: 3306
   selector:
     role: db
   clusterIP: None
