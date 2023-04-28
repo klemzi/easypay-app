@@ -29,12 +29,11 @@ metadata:
   namespace: easypay
 spec:
   selector:
-    app: easypay
-    tier: frontend
+    role: frontend
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 8080
+      targetPort: 8080
       nodePort: 30050
   type: NodePort
 
